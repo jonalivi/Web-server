@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+"""
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,6 +50,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+"""
 
 ROOT_URLCONF = 'ask.urls'
 
