@@ -1,6 +1,13 @@
-sudo rm /etc/nginx/sites-enabled/default
-sudo ln -s /home/box/web/etc/nginx.conf /etc/nginx/sites-enabled/stepic.conf
-sudo /etc/init.d/nginx restart
-sudo ln -s /home/box/web/etc/gunicorn.conf   /etc/gunicorn.d/test
-#sudo /etc/init.d/gunicorn restart
-sudo /usr/bin/gunicorn -D 0.0.0.0:8080 hello:app
+NGINX_SITES="/etc/nginx/sites-enabled"
+SERVER_ROOT="/home/box/web"
+NGINX_EXEC="/etc/init.d/nginx"
+GUNICORN_SITES="/etc/gunicorn.d"
+GUNICORN_EXEC="/etc/init.d/gunicorn"
+
+sudo test -h ${NGINX_SITES}/default && sudo rm ${NGINX_SITES}/default
+sudo ln -sf ${SERVER_ROOT}/etc/nginx.conf ${NGINX_SITES}/stepic.conf
+sudo ${NGINX_EXEC} restart
+sudo ln -sf ${SERVER_ROOT}/etc/gunicorn_test.conf   ${GUNICORN_SITES}/test
+sudo ln -sf ${SERVER_ROOT}/etc/gunicorn_ask.conf ${GUNICORN_SITES}/ask
+sudo ${GUNICORN_EXEC} restart
+
