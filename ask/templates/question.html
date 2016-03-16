@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+<title>{{ question.title }}</title>
+<div>
+<h1>{{ question.title }}</h1>
+<p>{{ question.text }}</p>
+</div>
+<hr>
+<!--<table>
+<tr><th>Author</th><td>{{ question.author.username }}</td></tr>
+<tr><th>Added at</th><td>{{ question.added_at }}</td></tr>
+<tr><th>Rating</th><td>{{ question.rating }}</td></tr>
+</table> -->
+{% if answers.count > 0 %}
+<h1>Answers</h1>
+{% endif %}
+{% for answer in answers %}
+<div class="answer">{{ answer.text }}</div><hr>
+{% endfor %}
+</head>
+</html>
