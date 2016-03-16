@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head><title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<div>
+{% for q in questions %}
+	<div class="question"><a href="{{ q.get_url }}">{{ q.title }}</a></div>
+{% endfor %}
+</div>
+<nav><ul class="pagination">
+{% for p in paginator.page_range %}
+	{% if p == page.number %}
+		<li class="active">{{ p }}
+	{% else %}
+		<li><a href="{{ paginator.baseurl }}{{ p }}">{{ p }}</a>
+	{% endif %}
+	</li>
+{% endfor %}
+</ul></nav>
+</body>
+</html>
