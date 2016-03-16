@@ -10,6 +10,7 @@ sudo ${NGINX_EXEC} restart
 sudo ln -sf ${SERVER_ROOT}/etc/gunicorn_test.conf   ${GUNICORN_SITES}/test
 sudo ln -sf ${SERVER_ROOT}/etc/gunicorn_ask.conf ${GUNICORN_SITES}/ask
 sudo mysql -uroot -e "source create_db.sql"
-sudo python ask/manage.py syncdb
+sudo python ask/manage.py makemigrations
+sudo python ask/manage.py migrate
 sudo ${GUNICORN_EXEC} restart
 
