@@ -2,7 +2,10 @@ from django.http import HttpRequest, HttpResponse, Http404
 from django.core.paginator import Paginator, Page, EmptyPage
 from django.shortcuts import render
 from django.views.decorators.http import require_GET
+from django.http import HttpResponseRedirect
+
 from qa.models import Question, Answer
+from qa.forms import AskForm, AnswerForm
 
 def test(request, *args, **kwargs):
 	return HttpResponse('OK')
@@ -64,4 +67,30 @@ def question_single(request, question_id=None):
 	return render(request, 'question.html', {
 		'question':	q,
 		'answers':	answers,
-	})		 
+	})
+
+def question_add(request):
+	if request.method == 'POST':
+		form = AskForm(request.POST)
+		if form.is_valid():
+			question = form.save()
+			url = question.get_url()
+			return HttpResponseRedirect(url)
+	else:
+		form = AskForm()
+	return render(request, 'question_add.html', {
+		'form':	form,
+	})
+
+def answer_add(request):
+	if request.method == 'POST':
+		form = AnswerForm(request.POST)
+		if form.is_valid():
+			answer = form.save()
+			url = answer.question.get_url()
+			return HttpResponseRedirect(url)
+	else:
+		form = AnswerForm()
+	return render(request, 'answer_add.html', {
+		'form':	form,
+	})	 
