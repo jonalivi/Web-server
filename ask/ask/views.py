@@ -53,8 +53,12 @@ def question_single(request, question_id=None):
 	if not question_id:
 		raise Http404
 	question_id = int(question_id)
-	q = Question.objects.filter(pk=question_id)[0]
+	q = Question.objects.filter(pk=question_id)
 	if not q:
+		raise Http404
+	try:
+		q = q[0]
+	except IndexError:
 		raise Http404
 	answers = Answer.objects.filter(question=q).order_by('-added_at')
 	return render(request, 'question.html', {
