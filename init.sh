@@ -9,8 +9,9 @@ sudo ln -sf ${SERVER_ROOT}/etc/nginx.conf ${NGINX_SITES}/stepic.conf
 sudo ${NGINX_EXEC} restart
 sudo ln -sf ${SERVER_ROOT}/etc/gunicorn_test.conf   ${GUNICORN_SITES}/test
 sudo ln -sf ${SERVER_ROOT}/etc/gunicorn_ask.conf ${GUNICORN_SITES}/ask
-sudo mysql -uroot -e "source create_db.sql"
-sudo python ask/manage.py makemigrations
-sudo python ask/manage.py migrate
+#sudo mysql -uroot -e "source create_db.sql"
+#sudo python ask/manage.py makemigrations
+#sudo python ask/manage.py migrate
+sudo python ask/manage.py syncdb
 sudo ${GUNICORN_EXEC} restart
 
