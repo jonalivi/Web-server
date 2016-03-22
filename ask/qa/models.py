@@ -9,7 +9,7 @@ class Question(models.Model):
 	text = models.TextField()
 	added_at = models.DateTimeField(blank=True)
 	rating = models.IntegerField(blank=True)
-	author = User()
+	author = models.CharField(max_length=30)
 	likes = models.ManyToManyField(User)
 
 	def __str__(self):
@@ -22,7 +22,7 @@ class Answer(models.Model):
 	text = models.TextField()
 	added_at = models.DateTimeField()
 	question = models.ForeignKey(Question, null=True, on_delete=models.SET_NULL)
-	author = User()
+	author = models.CharField(max_length=30)
 
 	def __str__(self):
 		return '%s : Re:%s : %s' % (self.author, self.question, self.text)
