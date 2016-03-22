@@ -10,7 +10,7 @@ def test(request, *args, **kwargs):
 @require_GET
 def questions_main(request):
 	questions = Question.objects.all()
-	questions = questions.order_by('-pk')
+	questions = questions.order_by('-added_at')
 	try:
 		page = int(request.GET.get('page', 1))
 	except ValueError:
@@ -30,7 +30,7 @@ def questions_main(request):
 @require_GET
 def questions_popular(request):
 	questions = Question.objects.all()
-	questions = questions.order_by('-rating', '-pk')
+	questions = questions.order_by('-rating', '-added_at')
 	try:
 		page = int(request.GET.get('page', 1))
 	except ValueError:
@@ -55,7 +55,7 @@ def question_single(request, question_id=None):
 	q = Question.objects.filter(pk=question_id)[0]
 	if not q:
 		raise Http404
-	answers = Answer.objects.filter(question=q).order_by('-pk')
+	answers = Answer.objects.filter(question=q).order_by('-added_at')
 	return render(request, 'question.html', {
 		'question':	q,
 		'answers':	answers,
