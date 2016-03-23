@@ -38,3 +38,4 @@ class Answer(models.Model):
 		return '%s : Re:%s : %s' % (self.author, self.question, self.text)
 
 
+
