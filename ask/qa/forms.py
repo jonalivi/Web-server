@@ -36,10 +36,11 @@ class SignupForm(forms.Form):
 
 	def clean_username(self):
 		username = self.cleaned_data['username']
-		u = User.objects.get(username='username')
-		if u:
-			raise forms.ValidationError('Username already in use', code='wrong')
-		return username
+		try:
+			u = User.objects.get(username='username')
+		except User.DoesNotExist:
+			return username
+		raise forms.ValidationError('Username already in use', code='wrong')
 
 	def save(self):
 		user = User(**self.cleaned_data)
