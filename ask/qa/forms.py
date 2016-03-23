@@ -37,7 +37,7 @@ class SignupForm(forms.Form):
 	def clean_username(self):
 		username = self.cleaned_data['username']
 		try:
-			u = User.objects.get(username='username')
+			u = User.objects.get(username=username)
 		except User.DoesNotExist:
 			return username
 		raise forms.ValidationError('Username already in use', code='wrong')
@@ -50,3 +50,19 @@ class SignupForm(forms.Form):
 class LoginForm(forms.Form):
 	username = forms.CharField()
 	password = forms.CharField(widget=forms.PasswordInput)
+
+	def clean(self):
+		username = self.cleaned_data['username']
+		password = self.cleaned_data['password']
+		try:
+			u = User.objects.get(username=username, password=password)
+		except User.DoesNotExist:
+			raise forms.ValidationError('Wrong login and/or password', code='wrong')
+		return self.cleaned_data
+
+	def save(self):
+		username = self.cleaned_data['username']
+		password = self.cleaned_data['password']
+		user = User(username=username, password=password)
+		return user
+		
