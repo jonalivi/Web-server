@@ -14,4 +14,6 @@ sudo ln -sf ${SERVER_ROOT}/etc/gunicorn_ask.conf ${GUNICORN_SITES}/ask
 #sudo python ask/manage.py migrate
 sudo python ask/manage.py syncdb
 sudo ${GUNICORN_EXEC} restart
+sudo chown www-data:www-data ask/
+sudo chown www-data:www-data ask/db.sqlite3
 
