@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from django.db import models 
 
 from django.utils import timezone
@@ -30,7 +30,7 @@ class Answer(models.Model):
 		return '%s : Re:%s : %s' % (self.author, self.question, self.text)
 
 class User(models.Model):
-	username = models.CharField()
+	username = models.CharField(unique=True)
 	email = models.CharField()
 	password = models.CharField()
 
