@@ -5,8 +5,8 @@ from django.views.decorators.http import require_GET
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import HttpResponseRedirect
 
-from qa.models import Question, Answer
-from qa.forms import AskForm, AnswerForm
+from qa.models import Question, Answer, User
+from qa.forms import AskForm, AnswerForm, SignupForm, LoginForm
 
 def test(request, *args, **kwargs):
 	return HttpResponse('OK')
@@ -94,4 +94,16 @@ def answer_add(request):
 		form = AnswerForm()
 	return render(request, 'answer_add.html', {
 		'form':	form,
-	})	 
+	})	
+
+def signup(request):
+	if request.method == 'POST':
+		form = SignupForm(request.POST)
+		if form.is_valid():
+			user = form.save()
+			return HttpResponseRedirect('/')
+	else:
+		form = SignupForm()
+	return render(request, 'signup_form.html', {
+		'form': form,
+	})
