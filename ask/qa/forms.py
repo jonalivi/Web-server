@@ -9,6 +9,7 @@ class AskForm(forms.Form):
 
 	def clean(self):
 		self.cleaned_data['added_at'] = timezone.now()
+		return self.cleaned_data
 		
 	def save(self):
 		q = Question(**self.cleaned_data)
@@ -21,6 +22,7 @@ class AnswerForm(forms.Form):
 
 	def clean(self):
 		self.cleaned_data['added_at'] = timezone.now()
+		return self.cleaned_data
 		
 	def save(self):
 		a = Answer(**self.cleaned_data)
