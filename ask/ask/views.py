@@ -2,6 +2,7 @@ from django.http import HttpRequest, HttpResponse, Http404
 from django.core.paginator import Paginator, Page, EmptyPage
 from django.shortcuts import render
 from django.views.decorators.http import require_GET
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import HttpResponseRedirect
 
 from qa.models import Question, Answer
@@ -51,7 +52,7 @@ def questions_popular(request):
 	})
 	
 	
-@require_GET
+@ensure_csrf_cookie
 def question_single(request, question_id=None):
 	if not question_id:
 		raise Http404
