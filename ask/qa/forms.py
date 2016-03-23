@@ -34,6 +34,13 @@ class SignupForm(forms.Form):
 	email = forms.EmailField()
 	password = forms.CharField(widget=forms.PasswordInput)
 
+	def clean_username(self):
+		username = self.cleaned_data['username']
+		u = User.objects.get(username='username')
+		if u:
+			raise forms.ValidationError('Username already in use', code='wrong')
+		return username
+
 	def save(self):
 		user = User(**self.cleaned_data)
 		user.save()
