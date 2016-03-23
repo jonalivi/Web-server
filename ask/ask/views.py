@@ -75,14 +75,17 @@ def question_add(request):
 		form = AskForm(request.POST)
 		if form.is_valid():
 			question = form.save()
-			question.author_id = int(request.session.get('user'))
+			user_id = request.session.get('user')
+			if user_id:
+				user_id = int(user_id)
+				question.author_id = user_id
 			question.save()
 			url = question.get_url()
 			return HttpResponseRedirect(url)
 	else:
 		user_id = request.session.get('user')
-		if not user_id:
-			return HttpResponseRedirect('/login/')
+#		if not user_id:
+#			return HttpResponseRedirect('/login/')
 		form = AskForm()
 	return render(request, 'question_add.html', {
 		'form':	form,
@@ -93,14 +96,17 @@ def answer_add(request):
 		form = AnswerForm(request.POST)
 		if form.is_valid():
 			answer = form.save()
-			answer.author_id = int(request.session.get('user'))
+			user_id = request.session.get('user')
+			if user_id:
+				user_id = int(user_id)
+				answer.author_id = user_id
 			answer.save()
 			url = answer.question.get_url()
 			return HttpResponseRedirect(url)
 	else:
 		user_id = request.session.get('user')
-		if not user_id:
-			return HttpResponseRedirect('/login/')
+#		if not user_id:
+#			return HttpResponseRedirect('/login/')
 		form = AnswerForm()
 	return render(request, 'answer_add.html', {
 		'form':	form,
