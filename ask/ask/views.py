@@ -101,6 +101,7 @@ def signup(request):
 		form = SignupForm(request.POST)
 		if form.is_valid():
 			user = form.save()
+			request.session.flush()
 			request.session['user'] = user.id
 			return HttpResponseRedirect('/')
 	else:
@@ -108,3 +109,19 @@ def signup(request):
 	return render(request, 'signup_form.html', {
 		'form': form,
 	})
+
+def login(request):
+	if request.method == 'POST':
+		form = LoginForm(request.POST)
+		if form.is_valid():
+			user = form.save()
+			request.session.flush()
+			request.session['user'] = user.id
+			return HttpResponseRedirect('/')
+	else:
+		form = LoginForm()
+	return render(request, 'login_form.html', {
+		'form': form,
+	})	
+
+
