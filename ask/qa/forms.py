@@ -6,7 +6,6 @@ from django.utils import timezone
 class AskForm(forms.Form):
 	title = forms.CharField(max_length=255)
 	text = forms.CharField(widget=forms.Textarea)
-
 	def clean(self):
 		self.cleaned_data['added_at'] = timezone.now()
 		return self.cleaned_data
@@ -19,7 +18,6 @@ class AskForm(forms.Form):
 class AnswerForm(forms.Form):
 	text = forms.CharField(widget=forms.Textarea)
 	question = forms.ModelChoiceField(queryset = Question.objects.all(), to_field_name='title')
-
 	def clean(self):
 		self.cleaned_data['added_at'] = timezone.now()
 		return self.cleaned_data
