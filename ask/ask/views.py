@@ -101,6 +101,7 @@ def signup(request):
 		form = SignupForm(request.POST)
 		if form.is_valid():
 			user = form.save()
+			request.session['user'] = user.id
 			return HttpResponseRedirect('/')
 	else:
 		form = SignupForm()
