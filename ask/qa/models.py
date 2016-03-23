@@ -19,8 +19,8 @@ class Question(models.Model):
 	text = models.TextField()
 	added_at = models.DateTimeField(default=timezone.now())
 	rating = models.IntegerField(default=0)
-	author = models.CharField(max_length=30, default='anon')
-	likes = models.ManyToManyField(User)
+	author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+	#likes = models.ManyToManyField(User)
 
 	def __str__(self):
 		return '%s : %s : %s' % (self.author, self.title, self.text)
@@ -32,7 +32,7 @@ class Answer(models.Model):
 	text = models.TextField()
 	added_at = models.DateTimeField(default=timezone.now())
 	question = models.ForeignKey(Question, on_delete=models.CASCADE)
-	author = models.CharField(max_length=30, default='anon')
+	author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
 	def __str__(self):
 		return '%s : Re:%s : %s' % (self.author, self.question, self.text)
