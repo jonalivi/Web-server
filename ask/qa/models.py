@@ -6,6 +6,14 @@ from django.db import models
 
 from django.utils import timezone
 
+class User(models.Model):
+	username = models.CharField(max_length=20, unique=True)
+	email = models.EmailField()
+	password = models.CharField(max_length=20)
+
+	def __str__(self):
+		return '%s, %s' % (self.username, self.email)
+
 class Question(models.Model):
 	title = models.CharField(max_length=255)
 	text = models.TextField()
@@ -29,10 +37,4 @@ class Answer(models.Model):
 	def __str__(self):
 		return '%s : Re:%s : %s' % (self.author, self.question, self.text)
 
-class User(models.Model):
-	username = models.CharField(unique=True)
-	email = models.CharField()
-	password = models.CharField()
 
-	def __str__(self):
-		return '%s, %s' % (self.username, self.email)
