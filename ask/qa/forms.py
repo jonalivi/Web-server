@@ -1,5 +1,5 @@
 from django import forms
-from qa.models import Question, Answer
+from qa.models import Question, Answer, User
 
 from django.utils import timezone
 
@@ -28,3 +28,13 @@ class AnswerForm(forms.Form):
 		a = Answer(**self.cleaned_data)
 		a.save()
 		return a
+
+class SignupForm(forms.Form):
+	username = forms.CharField()
+	email = forms.EmailField()
+	password = forms.CharField(widget=forms.PasswordInput)
+
+	def save(self):
+		user = User(**self.cleaned_data)
+		user.save()
+		return user
